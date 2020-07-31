@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ITodoItemProps} from 'interfases';
 
-const TodoItem: React.FC<ITodoItemProps> = ({todo, removeItem}) => {
+const TodoItem: React.FC<ITodoItemProps> = ({todo, openItem, removeItem}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => console.log('Pressed', todo.id)}
+      onPress={() => openItem(todo.id)}
       onLongPress={() => removeItem(todo.id)}>
       <View style={styles.todo}>
         <Text>{todo.title}</Text>

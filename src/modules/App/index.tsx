@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Navbar from '../../components/Navbar';
 import useApp from './useApp';
@@ -6,8 +6,7 @@ import MainScreen from 'src/screens/MainScreen';
 import TodoScreen from 'src/screens/TodoScreen';
 
 const App: React.FC = () => {
-  const [todoId, setTodoId] = useState<boolean>(false);
-  const {todos, addTodo, removeItem} = useApp();
+  const {todos, todoId, addItem, openItem, removeItem} = useApp();
 
   return (
     <View style={styles.container}>
@@ -16,7 +15,12 @@ const App: React.FC = () => {
         {todoId ? (
           <TodoScreen />
         ) : (
-          <MainScreen todos={todos} addTodo={addTodo} removeItem={removeItem} />
+          <MainScreen
+            todos={todos}
+            addItem={addItem}
+            openItem={openItem}
+            removeItem={removeItem}
+          />
         )}
       </View>
     </View>

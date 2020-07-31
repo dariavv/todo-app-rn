@@ -3,8 +3,8 @@ import {View, StyleSheet, TextInput, Button} from 'react-native';
 import useAddTodo from './useAddTodo';
 import {IAddTodoProps} from 'interfases';
 
-const AppTodo: React.FC<IAddTodoProps> = ({addTodo}) => {
-  const {value, setValue, pressHandler} = useAddTodo({addTodo});
+const AppTodo: React.FC<IAddTodoProps> = ({addItem}) => {
+  const {value, setValue, pressHandler} = useAddTodo({addItem});
 
   return (
     <View style={styles.block}>

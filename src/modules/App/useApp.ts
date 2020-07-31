@@ -9,7 +9,9 @@ const useApp = () => {
     {id: '4', title: 'Start learning Spanish'},
   ]);
 
-  const addTodo = (title: string) => {
+  const [todoId, setTodoId] = useState<string | null>(null);
+
+  const addItem = (title: string) => {
     const newTodo: any = {
       id: Date.now().toString(),
       title,
@@ -18,13 +20,15 @@ const useApp = () => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
+  const openItem = (id: any) => setTodoId(id);
+
   const removeItem = (id: string) => {
     setTodos((prevTodos: any[]) =>
       prevTodos.filter((item: any) => item.id !== id),
     );
   };
 
-  return {todos, addTodo, removeItem};
+  return {todos, todoId, addItem, openItem, removeItem};
 };
 
 export default useApp;
