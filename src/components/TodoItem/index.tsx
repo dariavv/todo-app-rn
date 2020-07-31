@@ -1,11 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
-const TodoItem: React.FC<any> = ({todo}) => {
+const TodoItem: React.FC<any> = ({todo, onRemove}) => {
   return (
-    <View style={styles.todo}>
-      <Text>{todo.title}</Text>
-    </View>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => console.log('Pressed', todo.id)}
+      onLongPress={() => onRemove(todo.id)}>
+      <View style={styles.todo}>
+        <Text>{todo.title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

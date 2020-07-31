@@ -6,7 +6,7 @@ import TodoItem from '../../components/TodoItem';
 import useApp from './useApp';
 
 const App: React.FC<any> = () => {
-  const {todos, addTodo} = useApp();
+  const {todos, addTodo, removeItem} = useApp();
 
   return (
     <View style={styles.container}>
@@ -16,7 +16,9 @@ const App: React.FC<any> = () => {
         <FlatList
           keyExtractor={(item) => item.id.toString()}
           data={todos}
-          renderItem={({item}) => <TodoItem todo={item} />}
+          renderItem={({item}) => (
+            <TodoItem todo={item} onRemove={removeItem} />
+          )}
         />
       </View>
     </View>
