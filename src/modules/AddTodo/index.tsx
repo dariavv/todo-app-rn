@@ -13,6 +13,8 @@ const AppTodo: React.FC<IOnSubmit> = ({onSubmit}) => {
         onChangeText={(text) => setValue(text)}
         value={value}
         placeholder="Add task"
+        autoCorrect={false}
+        autoCapitalize="none"
       />
       <Button title="Add" onPress={pressHandler} />
     </View>
