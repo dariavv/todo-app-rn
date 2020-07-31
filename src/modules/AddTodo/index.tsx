@@ -1,17 +1,10 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, TextInput, Button, Alert} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, TextInput, Button} from 'react-native';
+import useAddTodo from './useAddTodo';
+import {IOnSubmit} from 'interfases';
 
-const AppTodo: React.FC<any> = ({onSubmit}) => {
-  const [value, setValue] = useState<string>('');
-
-  const pressHandler = () => {
-    if (value.trim()) {
-      onSubmit(value);
-      setValue('');
-    } else {
-      Alert.alert('Error: write the name of task, please!');
-    }
-  };
+const AppTodo: React.FC<IOnSubmit> = ({onSubmit}) => {
+  const {value, setValue, pressHandler} = useAddTodo({onSubmit});
 
   return (
     <View style={styles.block}>

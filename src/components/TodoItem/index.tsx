@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-const Todo: React.FC<any> = ({todo}) => {
+const TodoItem: React.FC<any> = ({todo}) => {
   return (
     <View style={styles.todo}>
       <Text>{todo.title}</Text>
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Todo;
+export default TodoItem;
