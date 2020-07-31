@@ -20,6 +20,7 @@ export interface IMainScreenProps {
   removeItem: (id: string) => void;
 }
 
-export interface ISetState {
-  setTodoId: (value: string) => void;
+export interface ITodoScreenProps {
+  todo: ITodo;
+  goBack: () => void;
 }

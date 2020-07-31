@@ -20,7 +20,7 @@ const useApp = () => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
-  const openItem = (id: any) => setTodoId(id);
+  const openItem = (id: string) => setTodoId(id);
 
   const removeItem = (id: string) => {
     setTodos((prevTodos: any[]) =>
@@ -28,7 +28,9 @@ const useApp = () => {
     );
   };
 
-  return {todos, todoId, addItem, openItem, removeItem};
+  const goBack = () => setTodoId(null);
+
+  return {todos, todoId, addItem, openItem, removeItem, goBack};
 };
 
 export default useApp;

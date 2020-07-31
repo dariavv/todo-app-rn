@@ -6,14 +6,16 @@ import MainScreen from 'src/screens/MainScreen';
 import TodoScreen from 'src/screens/TodoScreen';
 
 const App: React.FC = () => {
-  const {todos, todoId, addItem, openItem, removeItem} = useApp();
+  const {todos, todoId, addItem, openItem, removeItem, goBack} = useApp();
+
+  const selectedItem = todos.find((item) => item.id === todoId);
 
   return (
     <View style={styles.container}>
       <Navbar />
       <View style={styles.innerContainer}>
         {todoId ? (
-          <TodoScreen />
+          <TodoScreen todo={selectedItem} goBack={goBack} />
         ) : (
           <MainScreen
             todos={todos}

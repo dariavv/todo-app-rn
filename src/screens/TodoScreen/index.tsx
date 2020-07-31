@@ -1,10 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Button} from 'react-native';
+import {ITodoScreenProps} from 'interfases';
 
-const TodoScreen = () => {
+const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack}) => {
   return (
     <View style={styles.block}>
-      <Text>TodoScreen</Text>
+      <Text>{todo.title}</Text>
+      <Button title="Back" onPress={goBack} />
     </View>
   );
 };
