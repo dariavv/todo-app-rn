@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <View style={styles.navbar}>
       <Text style={styles.text}>Todo App</Text>

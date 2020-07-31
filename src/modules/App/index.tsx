@@ -1,25 +1,23 @@
-import React from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import Navbar from '../../components/Navbar';
-import AddTodo from '../AddTodo';
-import TodoItem from '../../components/TodoItem';
 import useApp from './useApp';
+import MainScreen from 'src/screens/MainScreen';
+import TodoScreen from 'src/screens/TodoScreen';
 
-const App: React.FC<any> = () => {
+const App: React.FC = () => {
+  const [todoId, setTodoId] = useState<boolean>(false);
   const {todos, addTodo, removeItem} = useApp();
 
   return (
     <View style={styles.container}>
       <Navbar />
       <View style={styles.innerContainer}>
-        <AddTodo onSubmit={addTodo} />
-        <FlatList
-          keyExtractor={(item) => item.id.toString()}
-          data={todos}
-          renderItem={({item}) => (
-            <TodoItem todo={item} onRemove={removeItem} />
-          )}
-        />
+        {todoId ? (
+          <TodoScreen />
+        ) : (
+          <MainScreen todos={todos} addTodo={addTodo} removeItem={removeItem} />
+        )}
       </View>
     </View>
   );

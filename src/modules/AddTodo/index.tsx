@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
 import useAddTodo from './useAddTodo';
-import {IOnSubmit} from 'interfases';
+import {IAddTodoProps} from 'interfases';
 
-const AppTodo: React.FC<IOnSubmit> = ({onSubmit}) => {
-  const {value, setValue, pressHandler} = useAddTodo({onSubmit});
+const AppTodo: React.FC<IAddTodoProps> = ({addTodo}) => {
+  const {value, setValue, pressHandler} = useAddTodo({addTodo});
 
   return (
     <View style={styles.block}>

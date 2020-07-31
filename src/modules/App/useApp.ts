@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {ITodos} from 'interfases';
+import {ITodo} from 'interfases';
 
 const useApp = () => {
-  const [todos, setTodos] = useState<ITodos[]>([
+  const [todos, setTodos] = useState<ITodo[]>([
     {id: '1', title: 'Learn React Native'},
     {id: '2', title: 'Get on the Project'},
     {id: '3', title: 'Improve my English skills to C1 level'},
