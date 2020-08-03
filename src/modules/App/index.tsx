@@ -8,7 +8,10 @@ import TodoScreen from 'src/screens/TodoScreen';
 const App: React.FC = () => {
   const {todos, todoId, addItem, openItem, removeItem, goBack} = useApp();
 
-  const selectedItem = todos.find((item) => item.id === todoId);
+  const selectedItem = todos.find((item: any) => item.id === todoId) || {
+    id: '0',
+    title: '',
+  };
 
   return (
     <View style={styles.container}>

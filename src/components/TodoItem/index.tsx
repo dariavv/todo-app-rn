@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {ITodoItemProps} from 'interfases';
+import {THEME} from '../../theme';
 
 const TodoItem: React.FC<ITodoItemProps> = ({todo, openItem, removeItem}) => {
   return (
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     borderWidth: 1,
-    borderColor: '#ececec',
+    borderColor: THEME.BORDER_COLOR,
     marginBottom: 10,
   },
 });

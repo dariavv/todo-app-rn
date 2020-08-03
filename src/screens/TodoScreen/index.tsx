@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, Text, Button} from 'react-native';
 import {ITodoScreenProps} from 'interfases';
+import {THEME} from '../../theme';
 
 const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack}) => {
   return (
@@ -8,12 +9,12 @@ const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack}) => {
       <Text style={styles.text}>{todo.title}</Text>
       <View style={styles.buttonsBlock}>
         <View style={styles.button}>
-          <Button title="Back" color="#21B8CF" onPress={goBack} />
+          <Button title="Back" color={THEME.MAIN_COLOR} onPress={goBack} />
         </View>
         <View style={styles.button}>
           <Button
             title="Remove"
-            color="#D6336B"
+            color={THEME.REMOVE_COLOR}
             onPress={() => console.log('To remove')}
           />
         </View>

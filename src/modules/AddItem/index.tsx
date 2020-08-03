@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
 import useAddTodo from './useAddTodo';
 import {IAddTodoProps} from 'interfases';
+import {THEME} from '../../theme';
 
 const AppTodo: React.FC<IAddTodoProps> = ({addItem}) => {
   const {value, setValue, pressHandler} = useAddTodo({addItem});
@@ -16,7 +17,9 @@ const AppTodo: React.FC<IAddTodoProps> = ({addItem}) => {
         autoCorrect={false}
         autoCapitalize="none"
       />
-      <Button title="Add" onPress={pressHandler} />
+      <View style={styles.button}>
+        <Button title="+ Add" color={THEME.MAIN_COLOR} onPress={pressHandler} />
+      </View>
     </View>
   );
 };
@@ -31,10 +34,13 @@ const styles = StyleSheet.create({
   input: {
     width: '70%',
     padding: 10,
-    fontSize: 20,
+    fontSize: 18,
     borderBottomWidth: 1,
-    borderColor: '#343A40',
-    color: '#343A40',
+    borderColor: THEME.TEXT_COLOR,
+    color: THEME.TEXT_COLOR,
+  },
+  button: {
+    width: '20%',
   },
 });
 
