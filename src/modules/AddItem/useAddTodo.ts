@@ -10,7 +10,7 @@ const useAddTodo = ({addItem}: IAddTodoProps) => {
       addItem(value);
       setValue('');
     } else {
-      Alert.alert('Error: write the name of task, please!');
+      Alert.alert('Enter task name, please!');
     }
   };
   return {value, setValue, pressHandler};

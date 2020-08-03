@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Text, Button} from 'react-native';
 import {ITodoScreenProps} from 'interfases';
 import {THEME} from '../../theme';
 import AppCard from '../../components/AppCard';
+// import useTodoScreen from './useTodoScreen';
+import EditModal from '../../components/EditModal';
 
 const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack, removeItem}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View>
+      <EditModal
+        visible={modalVisible}
+        setVisible={() => setModalVisible(false)}
+      />
       <AppCard style={styles.card}>
         <Text style={styles.text}>{todo.title}</Text>
         <Button
           title="Edit"
           color={THEME.MAIN_COLOR}
-          onPress={() => console.log('Edit')}
+          onPress={() => setModalVisible(true)}
         />
       </AppCard>
       <View style={styles.buttonsBlock}>
@@ -37,7 +45,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 20,
-    padding: 8,
+    padding: 10,
   },
   buttonsBlock: {
     flexDirection: 'row',

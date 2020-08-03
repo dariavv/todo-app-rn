@@ -16,6 +16,7 @@ const AppTodo: React.FC<IAddTodoProps> = ({addItem}) => {
         placeholder="Add task"
         autoCorrect={false}
         autoCapitalize="none"
+        maxLength={64}
       />
       <View style={styles.button}>
         <Button title="+ Add" color={THEME.MAIN_COLOR} onPress={pressHandler} />
