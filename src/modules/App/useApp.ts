@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Alert} from 'react-native';
 import {ITodo} from 'interfases';
 
 const useApp = () => {
@@ -9,10 +10,10 @@ const useApp = () => {
     {id: '4', title: 'Start learning Spanish'},
   ]);
 
-  const [todoId, setTodoId] = useState<string | null>('1');
+  const [todoId, setTodoId] = useState<string | null>(null);
 
   const addItem = (title: string) => {
-    const newTodo: any = {
+    const newTodo: ITodo = {
       id: Date.now().toString(),
       title,
     };
@@ -23,8 +24,26 @@ const useApp = () => {
   const openItem = (id: string) => setTodoId(id);
 
   const removeItem = (id: string) => {
-    setTodos((prevTodos: any[]) =>
-      prevTodos.filter((item: any) => item.id !== id),
+    const todoItem = todos.find((i: ITodo) => i.id === id);
+    Alert.alert(
+      'Delete item',
+      `Are you sure you want to delete ${todoItem?.title}?`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: () => {
+            setTodoId(null);
+            setTodos((prevTodos: ITodo[]) =>
+              prevTodos.filter((item: ITodo) => item.id !== id),
+            );
+          },
+        },
+      ],
+      {cancelable: false},
     );
   };
 

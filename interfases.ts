@@ -23,4 +23,5 @@ export interface IMainScreenProps {
 export interface ITodoScreenProps {
   todo: ITodo;
   goBack: () => void;
+  removeItem: (id: string) => void;
 }

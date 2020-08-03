@@ -4,7 +4,7 @@ import {ITodoScreenProps} from 'interfases';
 import {THEME} from '../../theme';
 import AppCard from '../../components/AppCard';
 
-const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack}) => {
+const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack, removeItem}) => {
   return (
     <View>
       <AppCard style={styles.card}>
@@ -21,9 +21,9 @@ const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack}) => {
         </View>
         <View style={styles.button}>
           <Button
-            title="Remove"
+            title="Delete"
             color={THEME.REMOVE_COLOR}
-            onPress={() => console.log('Remove')}
+            onPress={() => removeItem(todo.id)}
           />
         </View>
       </View>

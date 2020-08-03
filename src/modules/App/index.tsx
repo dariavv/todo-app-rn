@@ -18,7 +18,11 @@ const App: React.FC = () => {
       <Navbar />
       <View style={styles.innerContainer}>
         {todoId ? (
-          <TodoScreen todo={selectedItem} goBack={goBack} />
+          <TodoScreen
+            todo={selectedItem}
+            goBack={goBack}
+            removeItem={removeItem}
+          />
         ) : (
           <MainScreen
             todos={todos}
