@@ -7,4 +7,5 @@ export const THEME = {
   BORDER_COLOR: '#ececec',
   REMOVE_COLOR: '#D6336B',
   GREY_COLOR: '#495058',
+  WHITE_COLOR: '#ffffff',
 };
