@@ -9,7 +9,7 @@ const useApp = () => {
     {id: '4', title: 'Start learning Spanish'},
   ]);
 
-  const [todoId, setTodoId] = useState<string | null>(null);
+  const [todoId, setTodoId] = useState<string | null>('1');
 
   const addItem = (title: string) => {
     const newTodo: any = {
