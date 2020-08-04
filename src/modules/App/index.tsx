@@ -4,6 +4,7 @@ import Navbar from 'src/components/Navbar';
 import useApp from './useApp';
 import MainScreen from 'src/screens/MainScreen';
 import TodoScreen from 'src/screens/TodoScreen';
+import {THEME} from 'src/theme';
 
 const App: React.FC = () => {
   const {
@@ -44,7 +45,8 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 120,
+    paddingBottom: 120,
+    backgroundColor: THEME.WHITE_COLOR,
   },
   innerContainer: {
     paddingHorizontal: 30,
