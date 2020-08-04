@@ -4,7 +4,7 @@ import {ITodo} from 'interfases';
 import {THEME} from 'src/theme';
 import AppCard from 'src/components/AppCard';
 import useTodoScreen from './useTodoScreen';
-import EditModal from 'src/components/EditModal';
+import EditModal from 'src/modules/EditModal';
 
 type TodoScreenProps = {
   todo: ITodo;
