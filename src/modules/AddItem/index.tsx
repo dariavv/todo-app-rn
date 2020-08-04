@@ -1,10 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
 import useAddTodo from './useAddTodo';
-import {IAddTodoProps} from 'interfases';
-import {THEME} from '../../theme';
+import {THEME} from 'src/theme';
 
-const AppTodo: React.FC<IAddTodoProps> = ({addItem}) => {
+type AddTodoProps = {
+  addItem: (value: string) => void;
+};
+
+const AppTodo: React.FC<AddTodoProps> = ({addItem}) => {
   const {value, setValue, pressHandler} = useAddTodo({addItem});
 
   return (

@@ -12,6 +12,11 @@ const useApp = () => {
 
   const [todoId, setTodoId] = useState<string | null>(null);
 
+  const selectedItem = todos.find((item: any) => item.id === todoId) || {
+    id: '0',
+    title: '',
+  };
+
   const addItem = (title: string) => {
     const newTodo: ITodo = {
       id: Date.now().toString(),
@@ -25,31 +30,33 @@ const useApp = () => {
 
   const removeItem = (id: string) => {
     const todoItem = todos.find((i: ITodo) => i.id === id);
-    Alert.alert(
-      'Delete item',
-      `Are you sure you want to delete ${todoItem?.title}?`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Delete',
-          onPress: () => {
-            setTodoId(null);
-            setTodos((prevTodos: ITodo[]) =>
-              prevTodos.filter((item: ITodo) => item.id !== id),
-            );
+    if (todoItem) {
+      Alert.alert(
+        'Delete item',
+        `Are you sure you want to delete ${todoItem?.title}?`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
           },
-        },
-      ],
-      {cancelable: false},
-    );
+          {
+            text: 'Delete',
+            onPress: () => {
+              setTodoId(null);
+              setTodos((prevTodos: ITodo[]) =>
+                prevTodos.filter((item: ITodo) => item.id !== id),
+              );
+            },
+          },
+        ],
+        {cancelable: false},
+      );
+    }
   };
 
   const goBack = () => setTodoId(null);
 
-  return {todos, todoId, addItem, openItem, removeItem, goBack};
+  return {todos, todoId, selectedItem, addItem, openItem, removeItem, goBack};
 };
 
 export default useApp;

@@ -1,9 +1,9 @@
 import {useState} from 'react';
 
 const useTodoScreen = () => {
-  const [modal, setModal] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  return {modal, setModal};
+  return {modalVisible, setModalVisible};
 };
 
 export default useTodoScreen;

@@ -1,17 +1,24 @@
 import React from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
-import AddTodo from '../../modules/AddItem';
-import TodoItem from '../../components/TodoItem';
-import {IMainScreenProps} from 'interfases';
+import {View, FlatList} from 'react-native';
+import AddTodo from 'src/modules/AddItem';
+import TodoItem from 'src/components/TodoItem';
+import {ITodo} from 'interfases';
 
-const MainScreen: React.FC<IMainScreenProps> = ({
+type MainScreenProps = {
+  todos: ITodo[];
+  addItem: (title: string) => void;
+  openItem: (id: string) => void;
+  removeItem: (id: string) => void;
+};
+
+const MainScreen: React.FC<MainScreenProps> = ({
   todos,
   addItem,
   openItem,
   removeItem,
 }) => {
   return (
-    <View style={styles.block}>
+    <View>
       <AddTodo addItem={addItem} />
       <FlatList
         keyExtractor={(item) => item.id.toString()}
@@ -23,9 +30,5 @@ const MainScreen: React.FC<IMainScreenProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  block: {},
-});
 
 export default MainScreen;

@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet, Text, Button} from 'react-native';
-import {ITodoScreenProps} from 'interfases';
-import {THEME} from '../../theme';
-import AppCard from '../../components/AppCard';
-// import useTodoScreen from './useTodoScreen';
-import EditModal from '../../components/EditModal';
+import {ITodo} from 'interfases';
+import {THEME} from 'src/theme';
+import AppCard from 'src/components/AppCard';
+import useTodoScreen from './useTodoScreen';
+import EditModal from 'src/components/EditModal';
 
-const TodoScreen: React.FC<ITodoScreenProps> = ({todo, goBack, removeItem}) => {
-  const [modalVisible, setModalVisible] = useState(false);
+type TodoScreenProps = {
+  todo: ITodo;
+  goBack: () => void;
+  removeItem: (id: string) => void;
+};
+
+const TodoScreen: React.FC<TodoScreenProps> = ({todo, goBack, removeItem}) => {
+  const {modalVisible, setModalVisible} = useTodoScreen();
 
   return (
     <View>

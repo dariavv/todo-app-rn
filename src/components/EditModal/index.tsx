@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Button, Modal, Alert} from 'react-native';
-import {THEME} from '../../theme';
+import {THEME} from 'src/theme';
 
 type EditModalProps = {
   visible: boolean;

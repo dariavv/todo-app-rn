@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {THEME} from '../../theme';
+import {THEME} from 'src/theme';
 
 const Navbar: React.FC = () => {
   return (

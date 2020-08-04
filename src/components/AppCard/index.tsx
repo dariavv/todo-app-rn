@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {THEME} from '../../theme';
+import {THEME} from 'src/theme';
 
-const AppCard: React.FC<any> = (props) => {
-  return (
-    <View style={{...styles.default, ...props.style}}>{props.children}</View>
-  );
+type AppCardProps = {
+  style: {
+    marginBottom: number | string;
+    padding: number | string;
+  };
+  children?: ReactNode;
+};
+
+const AppCard: React.FC<AppCardProps> = ({style, children}) => {
+  return <View style={{...styles.default, ...style}}>{children}</View>;
 };
 
 const styles = StyleSheet.create({

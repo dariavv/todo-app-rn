@@ -1,9 +1,15 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {ITodoItemProps} from 'interfases';
-import {THEME} from '../../theme';
+import {ITodo} from 'interfases';
+import {THEME} from 'src/theme';
 
-const TodoItem: React.FC<ITodoItemProps> = ({todo, openItem, removeItem}) => {
+type TodoItemProps = {
+  todo: ITodo;
+  openItem: (id: string) => void;
+  removeItem: (id: string) => void;
+};
+
+const TodoItem: React.FC<TodoItemProps> = ({todo, openItem, removeItem}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
