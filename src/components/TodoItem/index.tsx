@@ -1,11 +1,24 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {ITodo} from 'interfases';
+import {THEME} from 'src/theme';
 
-const TodoItem: React.FC<any> = ({todo}) => {
+type TodoItemProps = {
+  todo: ITodo;
+  openItem: (id: string) => void;
+  removeItem: (id: string) => void;
+};
+
+const TodoItem: React.FC<TodoItemProps> = ({todo, openItem, removeItem}) => {
   return (
-    <View style={styles.todo}>
-      <Text>{todo.title}</Text>
-    </View>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => openItem(todo.id)}
+      onLongPress={() => removeItem(todo.id)}>
+      <View style={styles.todo}>
+        <Text>{todo.title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -15,7 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     borderWidth: 1,
-    borderColor: '#ececec',
+    borderColor: THEME.BORDER_COLOR,
     marginBottom: 10,
   },
 });

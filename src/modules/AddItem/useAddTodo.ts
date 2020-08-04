@@ -1,16 +1,16 @@
 import {useState} from 'react';
 import {Alert} from 'react-native';
-import {IOnSubmit} from 'interfases';
+import {IAddTodoProps} from 'interfases';
 
-const useAddTodo = ({onSubmit}: IOnSubmit) => {
+const useAddTodo = ({addItem}: IAddTodoProps) => {
   const [value, setValue] = useState<string>('');
 
   const pressHandler = () => {
     if (value.trim()) {
-      onSubmit(value);
+      addItem(value);
       setValue('');
     } else {
-      Alert.alert('Error: write the name of task, please!');
+      Alert.alert('Enter task name, please!');
     }
   };
   return {value, setValue, pressHandler};

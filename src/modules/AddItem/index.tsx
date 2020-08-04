@@ -1,10 +1,14 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
 import useAddTodo from './useAddTodo';
-import {IOnSubmit} from 'interfases';
+import {THEME} from 'src/theme';
 
-const AppTodo: React.FC<IOnSubmit> = ({onSubmit}) => {
-  const {value, setValue, pressHandler} = useAddTodo({onSubmit});
+type AddTodoProps = {
+  addItem: (value: string) => void;
+};
+
+const AppTodo: React.FC<AddTodoProps> = ({addItem}) => {
+  const {value, setValue, pressHandler} = useAddTodo({addItem});
 
   return (
     <View style={styles.block}>
@@ -15,8 +19,11 @@ const AppTodo: React.FC<IOnSubmit> = ({onSubmit}) => {
         placeholder="Add task"
         autoCorrect={false}
         autoCapitalize="none"
+        maxLength={64}
       />
-      <Button title="Add" onPress={pressHandler} />
+      <View style={styles.button}>
+        <Button title="+ Add" color={THEME.MAIN_COLOR} onPress={pressHandler} />
+      </View>
     </View>
   );
 };
@@ -31,10 +38,13 @@ const styles = StyleSheet.create({
   input: {
     width: '70%',
     padding: 10,
-    fontSize: 20,
+    fontSize: 18,
     borderBottomWidth: 1,
-    borderColor: '#343A40',
-    color: '#343A40',
+    borderColor: THEME.TEXT_COLOR,
+    color: THEME.TEXT_COLOR,
+  },
+  button: {
+    width: '20%',
   },
 });
 

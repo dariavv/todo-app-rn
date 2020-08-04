@@ -1,8 +1,8 @@
-export interface ITodos {
+export interface ITodo {
   id: string;
   title: string;
 }
 
-export interface IOnSubmit {
-  onSubmit: (value: string) => void;
+export interface IAddTodoProps {
+  addItem: (value: string) => void;
 }
