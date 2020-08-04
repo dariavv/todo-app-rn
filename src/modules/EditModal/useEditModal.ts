@@ -1,12 +1,12 @@
-import {useState} from 'react';
-import {Alert} from 'react-native';
+import { useState } from 'react';
+import { Alert } from 'react-native';
 
 type UseEditModalProps = {
   value: string;
   saveItem: (title: string) => void;
 };
 
-const useEditModal = ({value, saveItem}: UseEditModalProps) => {
+const useEditModal = ({ value, saveItem }: UseEditModalProps) => {
   const [title, setTitle] = useState<string>(value);
 
   const saveHandler = () => {
@@ -21,7 +21,7 @@ const useEditModal = ({value, saveItem}: UseEditModalProps) => {
       saveItem(title);
     }
   };
-  return {title, setTitle, saveHandler};
+  return { title, setTitle, saveHandler };
 };
 
 export default useEditModal;

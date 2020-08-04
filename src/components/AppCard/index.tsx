@@ -1,6 +1,6 @@
-import React, {ReactNode} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {THEME} from 'src/theme';
+import React, { ReactNode } from 'react';
+import { View, StyleSheet } from 'react-native';
+import THEME from 'theme';
 
 type AppCardProps = {
   style: {
@@ -8,10 +8,6 @@ type AppCardProps = {
     padding: number | string;
   };
   children?: ReactNode;
-};
-
-const AppCard: React.FC<AppCardProps> = ({style, children}) => {
-  return <View style={{...styles.default, ...style}}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
@@ -23,9 +19,13 @@ const styles = StyleSheet.create({
     shadowColor: THEME.GREY_COLOR,
     shadowRadius: 2,
     shadowOpacity: 0.5,
-    shadowOffset: {width: 2, height: 2},
+    shadowOffset: { width: 2, height: 2 },
     elevation: 8,
   },
 });
+
+const AppCard: React.FC<AppCardProps> = ({ style, children }) => {
+  return <View style={{ ...styles.default, ...style }}>{children}</View>;
+};
 
 export default AppCard;

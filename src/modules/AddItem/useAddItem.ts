@@ -1,11 +1,11 @@
-import {useState} from 'react';
-import {Alert} from 'react-native';
+import { useState } from 'react';
+import { Alert } from 'react-native';
 
 type UseAddItemProps = {
   addItem: (value: string) => void;
 };
 
-const useAddItem = ({addItem}: UseAddItemProps) => {
+const useAddItem = ({ addItem }: UseAddItemProps) => {
   const [value, setValue] = useState<string>('');
 
   const pressHandler = () => {
@@ -16,7 +16,7 @@ const useAddItem = ({addItem}: UseAddItemProps) => {
       Alert.alert('Enter task name, please!');
     }
   };
-  return {value, setValue, pressHandler};
+  return { value, setValue, pressHandler };
 };
 
 export default useAddItem;

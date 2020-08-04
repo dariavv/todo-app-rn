@@ -1,13 +1,14 @@
-import {useState} from 'react';
-import {Alert} from 'react-native';
-import {ITodo} from 'interfases';
+/* eslint-disable no-param-reassign */
+import { useState } from 'react';
+import { Alert } from 'react-native';
+import { ITodo } from 'interfases';
 
 const useApp = () => {
   const [todos, setTodos] = useState<ITodo[]>([
-    {id: '1', title: 'Learn React Native'},
-    {id: '2', title: 'Get on the Project'},
-    {id: '3', title: 'Improve my English skills to C1 level'},
-    {id: '4', title: 'Start learning Spanish'},
+    { id: '1', title: 'Learn React Native' },
+    { id: '2', title: 'Get on the Project' },
+    { id: '3', title: 'Improve my English skills to C1 level' },
+    { id: '4', title: 'Start learning Spanish' },
   ]);
 
   const [todoId, setTodoId] = useState<string | null>(null);
@@ -39,11 +40,11 @@ const useApp = () => {
 
   const updateItem = (id: string, title: string) => {
     setTodos((prevTodos) =>
-      prevTodos.map((todo) => {
-        if (todo.id === id) {
-          todo.title = title;
+      prevTodos.map((item) => {
+        if (item.id === id) {
+          item.title = title;
         }
-        return todo;
+        return item;
       }),
     );
   };
@@ -69,7 +70,7 @@ const useApp = () => {
             },
           },
         ],
-        {cancelable: false},
+        { cancelable: false },
       );
     }
   };

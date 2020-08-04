@@ -1,10 +1,22 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import Navbar from 'src/components/Navbar';
+import { StyleSheet, View } from 'react-native';
+import Navbar from 'components/Navbar';
+import MainScreen from 'screens/MainScreen';
+import TodoScreen from 'screens/TodoScreen';
+import THEME from 'theme';
 import useApp from './useApp';
-import MainScreen from 'src/screens/MainScreen';
-import TodoScreen from 'src/screens/TodoScreen';
-import {THEME} from 'src/theme';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingBottom: 120,
+    backgroundColor: THEME.WHITE_COLOR,
+  },
+  innerContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+});
 
 const App: React.FC = () => {
   const {
@@ -41,17 +53,5 @@ const App: React.FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingBottom: 120,
-    backgroundColor: THEME.WHITE_COLOR,
-  },
-  innerContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-  },
-});
 
 export default App;

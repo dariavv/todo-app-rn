@@ -1,4 +1,4 @@
-export const THEME = {
+const THEME = {
   MAIN_COLOR: '#21B8CF',
   MAIN_COLOR1: '#66D9E8',
   MAIN_COLOR2: '#14AABF',
@@ -9,3 +9,5 @@ export const THEME = {
   GREY_COLOR: '#495058',
   WHITE_COLOR: '#ffffff',
 };
+
+export default THEME;

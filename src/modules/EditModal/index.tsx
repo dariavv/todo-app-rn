@@ -1,7 +1,39 @@
 import React from 'react';
-import {View, StyleSheet, TextInput, Button, Modal, Alert} from 'react-native';
-import {THEME} from 'src/theme';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  Modal,
+  Alert,
+} from 'react-native';
+import THEME from 'theme';
 import useEditModal from './useEditModal';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    width: '80%',
+    padding: 10,
+    fontSize: 18,
+    borderBottomWidth: 2,
+    borderColor: THEME.TEXT_COLOR,
+    color: THEME.TEXT_COLOR,
+    marginBottom: 20,
+  },
+  buttonsBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+  },
+  button: {
+    width: '40%',
+  },
+});
 
 type EditModalProps = {
   value: string;
@@ -16,7 +48,7 @@ const EditModal: React.FC<EditModalProps> = ({
   setVisible,
   saveItem,
 }) => {
-  const {title, setTitle, saveHandler} = useEditModal({value, saveItem});
+  const { title, setTitle, saveHandler } = useEditModal({ value, saveItem });
   return (
     <Modal
       animationType="slide"
@@ -55,30 +87,5 @@ const EditModal: React.FC<EditModalProps> = ({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    width: '80%',
-    padding: 10,
-    fontSize: 18,
-    borderBottomWidth: 2,
-    borderColor: THEME.TEXT_COLOR,
-    color: THEME.TEXT_COLOR,
-    marginBottom: 20,
-  },
-  buttonsBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-  },
-  button: {
-    width: '40%',
-  },
-});
 
 export default EditModal;

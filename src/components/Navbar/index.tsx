@@ -1,14 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {THEME} from 'src/theme';
-
-const Navbar: React.FC = () => {
-  return (
-    <View style={styles.navbar}>
-      <Text style={styles.text}>Todo App</Text>
-    </View>
-  );
-};
+import { View, Text, StyleSheet } from 'react-native';
+import THEME from 'theme';
 
 const styles = StyleSheet.create({
   navbar: {
@@ -23,5 +15,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+const Navbar: React.FC = () => {
+  return (
+    <View style={styles.navbar}>
+      <Text style={styles.text}>Todo App</Text>
+    </View>
+  );
+};
 
 export default Navbar;

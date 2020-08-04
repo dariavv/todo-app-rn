@@ -1,10 +1,27 @@
 import React from 'react';
-import {View, StyleSheet, Text, Button} from 'react-native';
-import {ITodo} from 'interfases';
-import {THEME} from 'src/theme';
-import AppCard from 'src/components/AppCard';
+import { View, StyleSheet, Text, Button } from 'react-native';
+import { ITodo } from 'interfases';
+import THEME from 'theme';
+import AppCard from 'components/AppCard';
+import EditModal from 'modules/EditModal';
 import useTodoScreen from './useTodoScreen';
-import EditModal from 'src/modules/EditModal';
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+  },
+  card: {
+    marginBottom: 20,
+    padding: 10,
+  },
+  buttonsBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    width: '40%',
+  },
+});
 
 type TodoScreenProps = {
   todo: ITodo;
@@ -19,7 +36,7 @@ const TodoScreen: React.FC<TodoScreenProps> = ({
   removeItem,
   updateItem,
 }) => {
-  const {modalVisible, setModalVisible, saveItem} = useTodoScreen({
+  const { modalVisible, setModalVisible, saveItem } = useTodoScreen({
     todo,
     updateItem,
   });
@@ -55,22 +72,5 @@ const TodoScreen: React.FC<TodoScreenProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-  },
-  card: {
-    marginBottom: 20,
-    padding: 10,
-  },
-  buttonsBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  button: {
-    width: '40%',
-  },
-});
 
 export default TodoScreen;

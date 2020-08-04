@@ -1,32 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, TextInput, Button} from 'react-native';
+import { View, StyleSheet, TextInput, Button } from 'react-native';
+import THEME from 'theme';
 import useAddItem from './useAddItem';
-import {THEME} from 'src/theme';
-
-type AddItemProps = {
-  addItem: (value: string) => void;
-};
-
-const AppTodo: React.FC<AddItemProps> = ({addItem}) => {
-  const {value, setValue, pressHandler} = useAddItem({addItem});
-
-  return (
-    <View style={styles.block}>
-      <TextInput
-        style={styles.input}
-        onChangeText={(text) => setValue(text)}
-        value={value}
-        placeholder="Add task"
-        autoCorrect={false}
-        autoCapitalize="none"
-        maxLength={64}
-      />
-      <View style={styles.button}>
-        <Button title="+ Add" color={THEME.MAIN_COLOR} onPress={pressHandler} />
-      </View>
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   block: {
@@ -47,5 +22,30 @@ const styles = StyleSheet.create({
     width: '20%',
   },
 });
+
+type AddItemProps = {
+  addItem: (value: string) => void;
+};
+
+const AppTodo: React.FC<AddItemProps> = ({ addItem }) => {
+  const { value, setValue, pressHandler } = useAddItem({ addItem });
+
+  return (
+    <View style={styles.block}>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setValue(text)}
+        value={value}
+        placeholder="Add task"
+        autoCorrect={false}
+        autoCapitalize="none"
+        maxLength={64}
+      />
+      <View style={styles.button}>
+        <Button title="+ Add" color={THEME.MAIN_COLOR} onPress={pressHandler} />
+      </View>
+    </View>
+  );
+};
 
 export default AppTodo;
