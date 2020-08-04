@@ -1,8 +1,11 @@
 import {useState} from 'react';
 import {Alert} from 'react-native';
-import {IAddTodoProps} from 'interfases';
 
-const useAddTodo = ({addItem}: IAddTodoProps) => {
+type UseAddItemProps = {
+  addItem: (value: string) => void;
+};
+
+const useAddItem = ({addItem}: UseAddItemProps) => {
   const [value, setValue] = useState<string>('');
 
   const pressHandler = () => {
@@ -16,4 +19,4 @@ const useAddTodo = ({addItem}: IAddTodoProps) => {
   return {value, setValue, pressHandler};
 };
 
-export default useAddTodo;
+export default useAddItem;

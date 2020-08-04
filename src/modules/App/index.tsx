@@ -12,6 +12,7 @@ const App: React.FC = () => {
     selectedItem,
     addItem,
     openItem,
+    updateItem,
     removeItem,
     goBack,
   } = useApp();
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             todo={selectedItem}
             goBack={goBack}
             removeItem={removeItem}
+            updateItem={updateItem}
           />
         ) : (
           <MainScreen

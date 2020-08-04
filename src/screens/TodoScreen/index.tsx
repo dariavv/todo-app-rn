@@ -10,16 +10,27 @@ type TodoScreenProps = {
   todo: ITodo;
   goBack: () => void;
   removeItem: (id: string) => void;
+  updateItem: (id: string, title: string) => void;
 };
 
-const TodoScreen: React.FC<TodoScreenProps> = ({todo, goBack, removeItem}) => {
-  const {modalVisible, setModalVisible} = useTodoScreen();
+const TodoScreen: React.FC<TodoScreenProps> = ({
+  todo,
+  goBack,
+  removeItem,
+  updateItem,
+}) => {
+  const {modalVisible, setModalVisible, saveItem} = useTodoScreen({
+    todo,
+    updateItem,
+  });
 
   return (
     <View>
       <EditModal
+        value={todo.title}
         visible={modalVisible}
         setVisible={() => setModalVisible(false)}
+        saveItem={saveItem}
       />
       <AppCard style={styles.card}>
         <Text style={styles.text}>{todo.title}</Text>

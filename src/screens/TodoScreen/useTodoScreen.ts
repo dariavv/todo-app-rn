@@ -1,9 +1,20 @@
 import {useState} from 'react';
+import {ITodo} from 'interfases';
 
-const useTodoScreen = () => {
+type UseTodoScreenProps = {
+  todo: ITodo;
+  updateItem: (id: string, title: string) => void;
+};
+
+const useTodoScreen = ({todo, updateItem}: UseTodoScreenProps) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  return {modalVisible, setModalVisible};
+  const saveItem = (title: string) => {
+    updateItem(todo.id, title);
+    setModalVisible(false);
+  };
+
+  return {modalVisible, setModalVisible, saveItem};
 };
 
 export default useTodoScreen;

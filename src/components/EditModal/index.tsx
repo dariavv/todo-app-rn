@@ -1,13 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, Button, Modal, Alert} from 'react-native';
 import {THEME} from 'src/theme';
 
 type EditModalProps = {
+  value: string;
   visible: boolean;
   setVisible: () => void;
+  saveItem: (title: string) => void;
 };
 
-const EditModal: React.FC<EditModalProps> = ({visible, setVisible}) => {
+const EditModal: React.FC<EditModalProps> = ({
+  value,
+  visible,
+  setVisible,
+  saveItem,
+}) => {
+  const [title, setTitle] = useState<string>(value);
+
+  const saveHandler = () => {
+    if (title.trim().length < 3) {
+      Alert.alert(
+        'Error',
+        `Minimum name length is 3 characters. ${
+          title.trim().length
+        } are too few!`,
+      );
+    } else {
+      saveItem(title);
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -19,7 +41,8 @@ const EditModal: React.FC<EditModalProps> = ({visible, setVisible}) => {
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          onChangeText={() => {}}
+          value={title}
+          onChangeText={setTitle}
           placeholder="Enter task name"
           autoCorrect={false}
           autoCapitalize="none"
@@ -37,7 +60,7 @@ const EditModal: React.FC<EditModalProps> = ({visible, setVisible}) => {
             <Button
               title="Save"
               color={THEME.MAIN_COLOR}
-              onPress={() => console.log('Save')}
+              onPress={saveHandler}
             />
           </View>
         </View>

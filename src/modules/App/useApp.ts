@@ -18,15 +18,35 @@ const useApp = () => {
   };
 
   const addItem = (title: string) => {
-    const newTodo: ITodo = {
-      id: Date.now().toString(),
-      title,
-    };
+    if (title.trim().length < 3) {
+      Alert.alert(
+        'Error',
+        `Minimum name length is 3 characters. ${
+          title.trim().length
+        } are too few!`,
+      );
+    } else {
+      const newTodo: ITodo = {
+        id: Date.now().toString(),
+        title,
+      };
 
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
+      setTodos((prevTodos) => [...prevTodos, newTodo]);
+    }
   };
 
   const openItem = (id: string) => setTodoId(id);
+
+  const updateItem = (id: string, title: string) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => {
+        if (todo.id === id) {
+          todo.title = title;
+        }
+        return todo;
+      }),
+    );
+  };
 
   const removeItem = (id: string) => {
     const todoItem = todos.find((i: ITodo) => i.id === id);
@@ -56,7 +76,16 @@ const useApp = () => {
 
   const goBack = () => setTodoId(null);
 
-  return {todos, todoId, selectedItem, addItem, openItem, removeItem, goBack};
+  return {
+    todos,
+    todoId,
+    selectedItem,
+    addItem,
+    openItem,
+    removeItem,
+    updateItem,
+    goBack,
+  };
 };
 
 export default useApp;
