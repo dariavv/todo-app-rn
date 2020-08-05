@@ -68,7 +68,8 @@
     "./babel.config.js",
     "./index.js",
     "./metro.config.js",
-    "./.eslintrc.js"
+    "./.eslintrc.js",
+    "./react-native.config.js"
   ],
   "exclude": ["node_modules", "__tests__/**/*-test.ts"]
 }

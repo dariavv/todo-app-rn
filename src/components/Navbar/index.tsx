@@ -4,15 +4,16 @@ import THEME from 'theme';
 
 const styles = StyleSheet.create({
   navbar: {
-    height: 70,
+    height: 90,
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: THEME.MAIN_COLOR,
-    paddingBottom: 10,
+    paddingBottom: 5,
   },
   text: {
-    color: THEME.TEXT_COLOR,
-    fontSize: 20,
+    color: THEME.WHITE_COLOR,
+    fontSize: 27,
+    fontFamily: 'BadScript-Regular',
   },
 });
 
