@@ -1,25 +1,53 @@
 import React from 'react';
-import {View, StyleSheet, Text, Button} from 'react-native';
-import {ITodo} from 'interfases';
-import {THEME} from 'src/theme';
-import AppCard from 'src/components/AppCard';
+import { View, StyleSheet, Text, Button } from 'react-native';
+import { ITodo } from 'interfases';
+import THEME from 'theme';
+import AppCard from 'components/AppCard';
+import EditModal from 'modules/EditModal';
 import useTodoScreen from './useTodoScreen';
-import EditModal from 'src/components/EditModal';
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 20,
+  },
+  card: {
+    marginBottom: 20,
+    padding: 10,
+  },
+  buttonsBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    width: '40%',
+  },
+});
 
 type TodoScreenProps = {
   todo: ITodo;
   goBack: () => void;
   removeItem: (id: string) => void;
+  updateItem: (id: string, title: string) => void;
 };
 
-const TodoScreen: React.FC<TodoScreenProps> = ({todo, goBack, removeItem}) => {
-  const {modalVisible, setModalVisible} = useTodoScreen();
+const TodoScreen: React.FC<TodoScreenProps> = ({
+  todo,
+  goBack,
+  removeItem,
+  updateItem,
+}) => {
+  const { modalVisible, setModalVisible, saveItem } = useTodoScreen({
+    todo,
+    updateItem,
+  });
 
   return (
     <View>
       <EditModal
+        value={todo.title}
         visible={modalVisible}
         setVisible={() => setModalVisible(false)}
+        saveItem={saveItem}
       />
       <AppCard style={styles.card}>
         <Text style={styles.text}>{todo.title}</Text>
@@ -44,22 +72,5 @@ const TodoScreen: React.FC<TodoScreenProps> = ({todo, goBack, removeItem}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-  },
-  card: {
-    marginBottom: 20,
-    padding: 10,
-  },
-  buttonsBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  button: {
-    width: '40%',
-  },
-});
 
 export default TodoScreen;

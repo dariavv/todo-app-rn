@@ -1,8 +1,21 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
-import AddTodo from 'src/modules/AddItem';
-import TodoItem from 'src/components/TodoItem';
-import {ITodo} from 'interfases';
+import { StyleSheet, View, FlatList, Image } from 'react-native';
+import AddTodo from 'modules/AddItem';
+import TodoItem from 'components/TodoItem';
+import { ITodo } from 'interfases';
+
+const styles = StyleSheet.create({
+  imageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '45%',
+    height: 300,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+});
 
 type MainScreenProps = {
   todos: ITodo[];
@@ -20,13 +33,22 @@ const MainScreen: React.FC<MainScreenProps> = ({
   return (
     <View>
       <AddTodo addItem={addItem} />
-      <FlatList
-        keyExtractor={(item) => item.id.toString()}
-        data={todos}
-        renderItem={({item}) => (
-          <TodoItem todo={item} openItem={openItem} removeItem={removeItem} />
-        )}
-      />
+      {todos.length ? (
+        <FlatList
+          keyExtractor={(item) => item.id.toString()}
+          data={todos}
+          renderItem={({ item }) => (
+            <TodoItem todo={item} openItem={openItem} removeItem={removeItem} />
+          )}
+        />
+      ) : (
+        <View style={styles.imageWrapper}>
+          <Image
+            style={styles.image}
+            source={require('../../../assets/images/empty.jpg')}
+          />
+        </View>
+      )}
     </View>
   );
 };
