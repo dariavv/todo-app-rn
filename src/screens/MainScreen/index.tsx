@@ -4,19 +4,6 @@ import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
 import { ITodo } from 'interfases';
 
-const styles = StyleSheet.create({
-  imageWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '45%',
-    height: 300,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-});
-
 type MainScreenProps = {
   todos: ITodo[];
   addItem: (title: string) => void;
@@ -52,5 +39,18 @@ const MainScreen: React.FC<MainScreenProps> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  imageWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '45%',
+    height: 300,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+});
 
 export default MainScreen;

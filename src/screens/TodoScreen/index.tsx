@@ -6,23 +6,6 @@ import AppCard from 'components/AppCard';
 import EditModal from 'modules/EditModal';
 import useTodoScreen from './useTodoScreen';
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 20,
-  },
-  card: {
-    marginBottom: 20,
-    padding: 10,
-  },
-  buttonsBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  button: {
-    width: '40%',
-  },
-});
-
 type TodoScreenProps = {
   todo: ITodo;
   goBack: () => void;
@@ -72,5 +55,23 @@ const TodoScreen: React.FC<TodoScreenProps> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    fontFamily: 'BadScript-Regular',
+  },
+  card: {
+    marginBottom: 20,
+    padding: 10,
+  },
+  buttonsBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    width: '40%',
+  },
+});
 
 export default TodoScreen;

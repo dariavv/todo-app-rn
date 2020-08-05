@@ -3,17 +3,6 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { ITodo } from 'interfases';
 import THEME from 'theme';
 
-const styles = StyleSheet.create({
-  todo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderWidth: 1,
-    borderColor: THEME.BORDER_COLOR,
-    marginBottom: 10,
-  },
-});
-
 type TodoItemProps = {
   todo: ITodo;
   openItem: (id: string) => void;
@@ -27,10 +16,24 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, openItem, removeItem }) => {
       onPress={() => openItem(todo.id)}
       onLongPress={() => removeItem(todo.id)}>
       <View style={styles.todo}>
-        <Text>{todo.title}</Text>
+        <Text style={styles.text}>{todo.title}</Text>
       </View>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  todo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    borderWidth: 1,
+    borderColor: THEME.BORDER_COLOR,
+    marginBottom: 10,
+  },
+  text: {
+    fontFamily: 'BadScript-Regular',
+  },
+});
 
 export default TodoItem;

@@ -6,18 +6,6 @@ import TodoScreen from 'screens/TodoScreen';
 import THEME from 'theme';
 import useApp from './useApp';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingBottom: 120,
-    backgroundColor: THEME.WHITE_COLOR,
-  },
-  innerContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-  },
-});
-
 const App: React.FC = () => {
   const {
     todos,
@@ -53,5 +41,17 @@ const App: React.FC = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingBottom: 120,
+    backgroundColor: THEME.WHITE_COLOR,
+  },
+  innerContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+});
 
 export default App;

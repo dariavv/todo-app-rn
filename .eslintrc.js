@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'react/prop-types': 0,
     'global-require': 0,
+    '@typescript-eslint/no-use-before-define': 0,
   },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'import'],

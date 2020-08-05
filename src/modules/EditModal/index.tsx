@@ -10,31 +10,6 @@ import {
 import THEME from 'theme';
 import useEditModal from './useEditModal';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    width: '80%',
-    padding: 10,
-    fontSize: 18,
-    borderBottomWidth: 2,
-    borderColor: THEME.TEXT_COLOR,
-    color: THEME.TEXT_COLOR,
-    marginBottom: 20,
-  },
-  buttonsBlock: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-  },
-  button: {
-    width: '40%',
-  },
-});
-
 type EditModalProps = {
   value: string;
   visible: boolean;
@@ -65,7 +40,7 @@ const EditModal: React.FC<EditModalProps> = ({
           placeholder="Enter task name"
           autoCorrect={false}
           autoCapitalize="none"
-          maxLength={64}
+          maxLength={35}
         />
         <View style={styles.buttonsBlock}>
           <View style={styles.button}>
@@ -87,5 +62,30 @@ const EditModal: React.FC<EditModalProps> = ({
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    width: '80%',
+    padding: 10,
+    marginBottom: 20,
+    fontFamily: 'BadScript-Regular',
+    borderBottomWidth: 1,
+    borderColor: THEME.TEXT_COLOR,
+    color: THEME.TEXT_COLOR,
+  },
+  buttonsBlock: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+  },
+  button: {
+    width: '40%',
+  },
+});
 
 export default EditModal;
