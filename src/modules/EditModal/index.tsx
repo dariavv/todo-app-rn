@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Modal,
-  Alert,
-} from 'react-native';
+import { View, StyleSheet, TextInput, Modal, Alert } from 'react-native';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Ionicons';
 import THEME from 'theme';
 import useEditModal from './useEditModal';
 
@@ -45,15 +40,27 @@ const EditModal: React.FC<EditModalProps> = ({
         <View style={styles.buttonsBlock}>
           <View style={styles.button}>
             <Button
+              icon={
+                <Icon name="exit-outline" size={20} color={THEME.WHITE_COLOR} />
+              }
+              buttonStyle={styles.buttonCancel}
               title="Cancel"
-              color={THEME.REMOVE_COLOR}
+              type="solid"
               onPress={setVisible}
             />
           </View>
           <View style={styles.button}>
             <Button
+              icon={
+                <Icon
+                  name="add-circle-outline"
+                  size={20}
+                  color={THEME.WHITE_COLOR}
+                />
+              }
+              buttonStyle={styles.buttonSave}
               title="Save"
-              color={THEME.MAIN_COLOR}
+              type="solid"
               onPress={saveHandler}
             />
           </View>
@@ -85,6 +92,14 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '40%',
+  },
+  buttonCancel: {
+    color: THEME.WHITE_COLOR,
+    backgroundColor: THEME.REMOVE_COLOR,
+  },
+  buttonSave: {
+    color: THEME.WHITE_COLOR,
+    backgroundColor: THEME.MAIN_COLOR,
   },
 });
 
