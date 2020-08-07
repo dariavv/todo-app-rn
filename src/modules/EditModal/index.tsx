@@ -41,7 +41,12 @@ const EditModal: React.FC<EditModalProps> = ({
           <View style={styles.button}>
             <Button
               icon={
-                <Icon name="exit-outline" size={20} color={THEME.WHITE_COLOR} />
+                <Icon
+                  name="exit-outline"
+                  size={20}
+                  color={THEME.WHITE_COLOR}
+                  style={styles.icon}
+                />
               }
               buttonStyle={styles.buttonCancel}
               title="Cancel"
@@ -56,6 +61,7 @@ const EditModal: React.FC<EditModalProps> = ({
                   name="add-circle-outline"
                   size={20}
                   color={THEME.WHITE_COLOR}
+                  style={styles.icon}
                 />
               }
               buttonStyle={styles.buttonSave}
@@ -100,6 +106,9 @@ const styles = StyleSheet.create({
   buttonSave: {
     color: THEME.WHITE_COLOR,
     backgroundColor: THEME.MAIN_COLOR,
+  },
+  icon: {
+    paddingRight: 5,
   },
 });
 

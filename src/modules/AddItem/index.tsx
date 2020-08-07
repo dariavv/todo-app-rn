@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, TextInput, Button } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Ionicons';
 import THEME from 'theme';
 import useAddItem from './useAddItem';
 
@@ -22,7 +24,12 @@ const AppTodo: React.FC<AddItemProps> = ({ addItem }) => {
         maxLength={35}
       />
       <View style={styles.button}>
-        <Button title="+ Add" color={THEME.MAIN_COLOR} onPress={pressHandler} />
+        <Button
+          icon={<Icon name="add" size={20} color={THEME.WHITE_COLOR} />}
+          buttonStyle={styles.buttonAdd}
+          type="clear"
+          onPress={pressHandler}
+        />
       </View>
     </View>
   );
@@ -36,7 +43,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   input: {
-    width: '70%',
+    width: '75%',
     padding: 10,
     borderBottomWidth: 1,
     borderColor: THEME.TEXT_COLOR,
@@ -44,7 +51,11 @@ const styles = StyleSheet.create({
     fontFamily: 'BadScript-Regular',
   },
   button: {
-    width: '20%',
+    width: '13%',
+  },
+  buttonAdd: {
+    color: THEME.WHITE_COLOR,
+    backgroundColor: THEME.MAIN_COLOR,
   },
 });
 
