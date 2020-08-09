@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.WHITE_COLOR,
   },
   innerContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
+    paddingHorizontal: THEME.PADDING_HORIZONTAL,
+    paddingVertical: THEME.PADDING_VERTICAL,
   },
 });
 

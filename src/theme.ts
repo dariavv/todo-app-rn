@@ -8,6 +8,8 @@ const THEME = {
   REMOVE_COLOR: '#D6336B',
   GREY_COLOR: '#495058',
   WHITE_COLOR: '#ffffff',
+  PADDING_HORIZONTAL: 30,
+  PADDING_VERTICAL: 20,
 };
 
 export default THEME;

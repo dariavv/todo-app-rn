@@ -1,8 +1,9 @@
-import React from 'react';
-import { StyleSheet, View, FlatList, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
 import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
 import { ITodo } from 'interfases';
+import THEME from 'theme';
 
 type MainScreenProps = {
   todos: ITodo[];
@@ -17,17 +18,39 @@ const MainScreen: React.FC<MainScreenProps> = ({
   openItem,
   removeItem,
 }) => {
+  const [deviceWidth, setDeviceWidth] = useState(
+    Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2,
+  );
+
+  useEffect(() => {
+    const update = () => {
+      const width =
+        Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2;
+      setDeviceWidth(width);
+    };
+
+    Dimensions.addEventListener('change', update);
+
+    return () => Dimensions.removeEventListener('change', update);
+  });
+
   return (
     <View>
       <AddTodo addItem={addItem} />
       {todos.length ? (
-        <FlatList
-          keyExtractor={(item) => item.id.toString()}
-          data={todos}
-          renderItem={({ item }) => (
-            <TodoItem todo={item} openItem={openItem} removeItem={removeItem} />
-          )}
-        />
+        <View style={{ width: deviceWidth }}>
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={todos}
+            renderItem={({ item }) => (
+              <TodoItem
+                todo={item}
+                openItem={openItem}
+                removeItem={removeItem}
+              />
+            )}
+          />
+        </View>
       ) : (
         <View style={styles.imageWrapper}>
           <Image
