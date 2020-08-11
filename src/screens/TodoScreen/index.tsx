@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -6,7 +6,6 @@ import { ITodo } from 'interfases';
 import THEME from 'theme';
 import AppCard from 'components/AppCard';
 import EditModal from 'modules/EditModal';
-import useTodoScreen from './useTodoScreen';
 
 type TodoScreenProps = {
   todo: ITodo;
@@ -21,10 +20,12 @@ const TodoScreen: React.FC<TodoScreenProps> = ({
   removeItem,
   updateItem,
 }) => {
-  const { modalVisible, setModalVisible, saveItem } = useTodoScreen({
-    todo,
-    updateItem,
-  });
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const saveItem = (title: string) => {
+    updateItem(todo.id, title);
+    setModalVisible(false);
+  };
 
   return (
     <View>
