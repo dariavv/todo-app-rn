@@ -14,7 +14,7 @@ const TodoState: React.FC<any> = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   return (
-    <TodoContext.Provider value={{ todos: state.todos }}>
+    <TodoContext.Provider value={{ todos: state.todos, dispatch }}>
       {children}
     </TodoContext.Provider>
   );
