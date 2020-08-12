@@ -1,16 +1,16 @@
-/* eslint-disable no-param-reassign */
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
 import Navbar from 'components/Navbar';
 import MainScreen from 'screens/MainScreen';
 import TodoScreen from 'screens/TodoScreen';
 import THEME from 'theme';
+import { ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM } from 'types';
 import { ITodo } from 'interfases';
 import TodoContext from 'context/todo/todoContext';
 
 const App: React.FC = () => {
-  const todoContext = useContext(TodoContext);
-  const [todos, setTodos] = useState<ITodo[]>([]);
+  const { todos, dispatch } = useContext(TodoContext);
+  // const [todos, setTodos] = useState<ITodo[]>([]);
 
   const [todoId, setTodoId] = useState<string | null>(null);
 
@@ -28,27 +28,12 @@ const App: React.FC = () => {
         } are too few!`,
       );
     } else {
-      const newTodo: ITodo = {
-        id: Date.now().toString(),
-        title,
-      };
-
-      setTodos((prevTodos) => [...prevTodos, newTodo]);
+      dispatch({ type: ADD_ITEM, payload: title });
     }
   };
 
-  const openItem = (id: string) => setTodoId(id);
-
-  const updateItem = (id: string, title: string) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((item) => {
-        if (item.id === id) {
-          item.title = title;
-        }
-        return item;
-      }),
-    );
-  };
+  const updateItem = (id: string, title: string) =>
+    dispatch({ type: UPDATE_ITEM, payload: { id, title } });
 
   const removeItem = (id: string) => {
     const todoItem = todos.find((i: ITodo) => i.id === id);
@@ -64,10 +49,8 @@ const App: React.FC = () => {
           {
             text: 'Delete',
             onPress: () => {
+              dispatch({ type: REMOVE_ITEM, payload: id });
               setTodoId(null);
-              setTodos((prevTodos: ITodo[]) =>
-                prevTodos.filter((item: ITodo) => item.id !== id),
-              );
             },
           },
         ],
@@ -75,6 +58,8 @@ const App: React.FC = () => {
       );
     }
   };
+
+  const openItem = (id: string) => setTodoId(id);
 
   const goBack = () => setTodoId(null);
 
@@ -91,7 +76,7 @@ const App: React.FC = () => {
           />
         ) : (
           <MainScreen
-            todos={todoContext.todos}
+            todos={todos}
             addItem={addItem}
             openItem={openItem}
             removeItem={removeItem}
