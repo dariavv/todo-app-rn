@@ -3,7 +3,9 @@ import { ITodo } from 'interfases';
 
 interface IContextProps {
   todos: ITodo[];
-  dispatch: React.Dispatch<any>;
+  addItem: (title: string) => void;
+  updateItem: (id: string, title: string) => void;
+  removeItem: (id: string) => void;
 }
 
 const TodoContext = createContext({} as IContextProps);

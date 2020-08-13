@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { CHANGE_SCREEN } from 'types';
 import screenReducer from './screenReducer';
+import ScreenContext from './screenContext';
 
 const ScreenState: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(screenReducer, null);
@@ -9,9 +10,9 @@ const ScreenState: React.FC = ({ children }) => {
     dispatch({ type: CHANGE_SCREEN, payload: id });
 
   return (
-    <ScreenState.Provider value={{ todoId: state, changeScreen }}>
+    <ScreenContext.Provider value={{ todoId: state, changeScreen }}>
       {children}
-    </ScreenState.Provider>
+    </ScreenContext.Provider>
   );
 };
 

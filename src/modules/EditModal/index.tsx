@@ -31,6 +31,12 @@ const EditModal: React.FC<EditModalProps> = ({
       saveItem(title);
     }
   };
+
+  const cancelHandler = () => {
+    setTitle(value);
+    setVisible();
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -63,7 +69,7 @@ const EditModal: React.FC<EditModalProps> = ({
               buttonStyle={styles.buttonCancel}
               title="Cancel"
               type="solid"
-              onPress={setVisible}
+              onPress={cancelHandler}
             />
           </View>
           <View style={styles.button}>

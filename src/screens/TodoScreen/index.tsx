@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -6,21 +6,19 @@ import { ITodo } from 'interfases';
 import THEME from 'theme';
 import AppCard from 'components/AppCard';
 import EditModal from 'modules/EditModal';
+import TodoContext from 'context/todo/todoContext';
+import ScreenContext from 'context/screen/screenContext';
 
-type TodoScreenProps = {
-  todo: ITodo;
-  goBack: () => void;
-  removeItem: (id: string) => void;
-  updateItem: (id: string, title: string) => void;
-};
+const TodoScreen: React.FC = () => {
+  const { todos, updateItem, removeItem } = useContext(TodoContext);
+  const { todoId, changeScreen } = useContext(ScreenContext);
 
-const TodoScreen: React.FC<TodoScreenProps> = ({
-  todo,
-  goBack,
-  removeItem,
-  updateItem,
-}) => {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const todo = todos.find((item: ITodo) => item.id === todoId) || {
+    id: '0',
+    title: '',
+  };
 
   const saveItem = (title: string) => {
     updateItem(todo.id, title);
@@ -58,7 +56,7 @@ const TodoScreen: React.FC<TodoScreenProps> = ({
             buttonStyle={styles.buttonBack}
             title="Back"
             type="solid"
-            onPress={goBack}
+            onPress={() => changeScreen(null)}
           />
         </View>
         <View style={styles.button}>

@@ -16,7 +16,7 @@ const handlers: Handlers = {
 
 const screenReducer = (state: any, action: any) => {
   const handler = handlers[action.type as 'CHANGE_SCREEN'] || handlers.DEFAULT;
-  return handler(state, action.payload);
+  return handler(state, action);
 };
 
 export default screenReducer;
