@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
+
 import Navbar from 'components/Navbar';
 import MainScreen from 'screens/MainScreen';
 import TodoScreen from 'screens/TodoScreen';
-import THEME from 'theme';
+import TodoContext from 'context/todo/todoContext';
+
 import { ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM } from 'types';
 import { ITodo } from 'interfases';
-import TodoContext from 'context/todo/todoContext';
+import THEME from 'theme';
 
 const App: React.FC = () => {
   const { todos, dispatch } = useContext(TodoContext);
-  // const [todos, setTodos] = useState<ITodo[]>([]);
 
   const [todoId, setTodoId] = useState<string | null>(null);
 
