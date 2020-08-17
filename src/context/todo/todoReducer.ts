@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import {
   ADD_ITEM,
   UPDATE_ITEM,
@@ -17,42 +18,40 @@ type State = {
 };
 
 type Handlers = {
-  [ADD_ITEM]: (state: State, { payload }: { payload: any }) => any;
-  [UPDATE_ITEM]: (
+  [ADD_ITEM]: (
     state: State,
-    {
-      payload: { id, title },
-    }: any,
+    { title, id }: { title: string; id: string },
   ) => any;
-  [REMOVE_ITEM]: (state: State, { payload }: { payload: string }) => any;
+  [UPDATE_ITEM]: (state: State, { id, title }: any) => any;
+  [REMOVE_ITEM]: (state: State, { id }: { id: string }) => any;
   [SHOW_LOADER]: (state: any, loading: boolean) => any;
   [HIDE_LOADER]: (state: any, loading: boolean) => any;
   [SHOW_ERROR]: (state: any, error: any) => any;
   [CLEAR_ERROR]: (state: any, error: any) => any;
-  [FETCH_TODOS]: (state: any, todos: any) => any;
+  [FETCH_TODOS]: (state: any, { todos }: { todos: any }) => any;
 
   DEFAULT: (state: State) => any;
 };
 
 const handlers: Handlers = {
-  [ADD_ITEM]: (state, { payload: { title, id } }) => ({
+  [ADD_ITEM]: (state, { title, id }) => ({
     ...state,
     todos: [...state.todos, { id, title }],
   }),
 
-  [UPDATE_ITEM]: (state, { payload: { id, title } }) => ({
+  [UPDATE_ITEM]: (state, { id, title }) => ({
     ...state,
     todos: state.todos.map((item: ITodoReducer) => {
       if (item.id === id) {
-        return { ...item, title };
+        item.title = title;
       }
       return item;
     }),
   }),
 
-  [REMOVE_ITEM]: (state, { payload }) => ({
+  [REMOVE_ITEM]: (state, { id }) => ({
     ...state,
-    todos: state.todos.filter((item: ITodo) => item.id !== payload),
+    todos: state.todos.filter((item: ITodo) => item.id !== id),
   }),
 
   [SHOW_LOADER]: (state) => ({ ...state, loading: true }),
@@ -66,8 +65,17 @@ const handlers: Handlers = {
 
 const todoReducer = (state: any, action: any) => {
   const handler =
-    handlers[action.type as 'ADD_ITEM' | 'UPDATE_ITEM' | 'REMOVE_ITEM'] ||
-    handlers.DEFAULT;
+    handlers[
+      action.type as
+        | 'ADD_ITEM'
+        | 'UPDATE_ITEM'
+        | 'REMOVE_ITEM'
+        | 'SHOW_LOADER'
+        | 'HIDE_LOADER'
+        | 'CLEAR_ERROR'
+        | 'SHOW_ERROR'
+        | 'FETCH_TODOS'
+    ] || handlers.DEFAULT;
   return handler(state, action);
 };
 

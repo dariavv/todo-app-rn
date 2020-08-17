@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext, useCallback } from 'react';
 import { Alert } from 'react-native';
 import TodoContext from 'context/todo/todoContext';
 import ScreenContext from 'context/screen/screenContext';
@@ -17,12 +17,7 @@ import todoReducer from './todoReducer';
 
 const TodoState: React.FC = ({ children }) => {
   const initialState = {
-    todos: [
-      { id: '1', title: 'Learn React Native' },
-      { id: '2', title: 'Get on the Project' },
-      { id: '3', title: 'Improve my English skills to C1 level' },
-      { id: '4', title: 'Start learning Spanish' },
-    ],
+    todos: [],
     loading: false,
     error: null,
   };
@@ -48,13 +43,12 @@ const TodoState: React.FC = ({ children }) => {
         },
       );
       const data = await response.json();
-      console.log('Data', data.name);
-      dispatch({ type: ADD_ITEM, payload: { title, id: data.name } });
+      dispatch({ type: ADD_ITEM, title, id: data.name });
     }
   };
 
   const updateItem = (id: string, title: string) =>
-    dispatch({ type: UPDATE_ITEM, payload: { id, title } });
+    dispatch({ type: UPDATE_ITEM, id, title });
 
   const removeItem = (id: string) => {
     const todoItem = state.todos.find((item: ITodo) => item.id === id);
@@ -70,14 +64,15 @@ const TodoState: React.FC = ({ children }) => {
           text: 'Delete',
           onPress: () => {
             changeScreen(null);
-            dispatch({ type: REMOVE_ITEM, payload: id });
+            dispatch({ type: REMOVE_ITEM, id });
           },
         },
       ],
       { cancelable: false },
     );
   };
-  const fetchTodos = async () => {
+
+  const fetchTodos = useCallback(async () => {
     showLoader();
     const response = await fetch(
       'https://ethereal-todo.firebaseio.com/todos.json',
@@ -87,15 +82,14 @@ const TodoState: React.FC = ({ children }) => {
       },
     );
     const data = await response.json();
-    console.log('Fetch Data', data);
     const todos = Object.keys(data).map((key: any) => ({
       ...data[key],
       id: key,
     }));
-    // setTimeout(() => dispatch({ type: FETCH_TODOS, todos }), 5000);
     dispatch({ type: FETCH_TODOS, todos });
     hideLoader();
-  };
+  }, []);
+
   const showLoader = () => dispatch({ type: SHOW_LOADER });
   const hideLoader = () => dispatch({ type: HIDE_LOADER });
 

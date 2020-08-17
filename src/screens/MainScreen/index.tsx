@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
 import AddTodo from 'modules/AddItem';
@@ -17,11 +18,9 @@ const MainScreen: React.FC = () => {
     Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2,
   );
 
-  const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos]);
-
   useEffect(() => {
-    loadTodos();
-  }, [loadTodos]);
+    fetchTodos();
+  }, [fetchTodos]);
 
   useEffect(() => {
     const update = () => {
