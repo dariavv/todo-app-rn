@@ -91,7 +91,7 @@ const TodoState: React.FC = ({ children }) => {
       dispatch({ type: FETCH_TODOS, todos });
     } catch (error) {
       showError('Something went wrong, try again :)');
-      console.log(error);
+      Alert.alert('ERROR', `${error}`);
     } finally {
       hideLoader();
     }
