@@ -74,9 +74,22 @@ const TodoState: React.FC = ({ children }) => {
         },
         {
           text: 'Delete',
-          onPress: () => {
+          onPress: async () => {
             changeScreen(null);
-            dispatch({ type: REMOVE_ITEM, id });
+            clearError();
+            try {
+              await fetch(
+                `https://ethereal-todo.firebaseio.com/todos/${id}.json`,
+                {
+                  method: 'DELETE',
+                  headers: { 'Content-Type': 'application/json' },
+                },
+              );
+              dispatch({ type: REMOVE_ITEM, id });
+            } catch (error) {
+              showError('Something went wrong, try again :)');
+              Alert.alert('ERROR', `${error}`);
+            }
           },
         },
       ],
