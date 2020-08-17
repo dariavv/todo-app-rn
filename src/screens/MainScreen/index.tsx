@@ -1,6 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Dimensions,
+  Text,
+} from 'react-native';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/Ionicons';
 import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
 import THEME from 'theme';
@@ -36,6 +44,30 @@ const MainScreen: React.FC = () => {
 
   if (loading) {
     return <AppLoader />;
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorWrapper}>
+        <Text style={styles.error}>{error}</Text>
+        <View style={styles.button}>
+          <Button
+            icon={
+              <Icon
+                name="repeat"
+                size={20}
+                color={THEME.WHITE_COLOR}
+                style={styles.icon}
+              />
+            }
+            buttonStyle={styles.errorButton}
+            title="Repeat"
+            type="solid"
+            onPress={fetchTodos}
+          />
+        </View>
+      </View>
+    );
   }
 
   return (
@@ -77,6 +109,27 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+  },
+  errorWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  error: {
+    fontSize: 24,
+    fontFamily: 'BadScript-Regular',
+    color: THEME.REMOVE_COLOR,
+    marginBottom: 30,
+  },
+  button: {
+    width: '40%',
+  },
+  errorButton: {
+    color: THEME.WHITE_COLOR,
+    backgroundColor: THEME.REMOVE_COLOR,
+  },
+  icon: {
+    paddingRight: 5,
   },
 });
 

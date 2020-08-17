@@ -8,8 +8,8 @@ import {
   REMOVE_ITEM,
   SHOW_LOADER,
   HIDE_LOADER,
-  // SHOW_ERROR,
-  // CLEAR_ERROR,
+  SHOW_ERROR,
+  CLEAR_ERROR,
   FETCH_TODOS,
 } from 'types';
 import { ITodo } from 'interfases';
@@ -74,27 +74,34 @@ const TodoState: React.FC = ({ children }) => {
 
   const fetchTodos = useCallback(async () => {
     showLoader();
-    const response = await fetch(
-      'https://ethereal-todo.firebaseio.com/todos.json',
-      {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
-    const data = await response.json();
-    const todos = Object.keys(data).map((key: any) => ({
-      ...data[key],
-      id: key,
-    }));
-    dispatch({ type: FETCH_TODOS, todos });
-    hideLoader();
+    clearError();
+    try {
+      const response = await fetch(
+        'https://ethereal-todo.firebaseio.com/todos.json',
+        {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        },
+      );
+      const data = await response.json();
+      const todos = Object.keys(data).map((key: any) => ({
+        ...data[key],
+        id: key,
+      }));
+      dispatch({ type: FETCH_TODOS, todos });
+    } catch (error) {
+      showError('Something went wrong, try again :)');
+      console.log(error);
+    } finally {
+      hideLoader();
+    }
   }, []);
 
   const showLoader = () => dispatch({ type: SHOW_LOADER });
   const hideLoader = () => dispatch({ type: HIDE_LOADER });
 
-  // const showError = (error: any) => dispatch({ type: SHOW_ERROR, error });
-  // const clearError = () => dispatch({ type: CLEAR_ERROR });
+  const showError = (error: any) => dispatch({ type: SHOW_ERROR, error });
+  const clearError = () => dispatch({ type: CLEAR_ERROR });
 
   return (
     <TodoContext.Provider
