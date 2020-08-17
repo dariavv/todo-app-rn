@@ -1,18 +1,27 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
 import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
 import THEME from 'theme';
 import TodoContext from 'context/todo/todoContext';
 import ScreenContext from 'context/screen/screenContext';
+import AppLoader from 'components/AppLoader';
 
 const MainScreen: React.FC = () => {
-  const { todos, addItem, removeItem } = useContext(TodoContext);
+  const { todos, addItem, removeItem, fetchTodos, loading, error } = useContext(
+    TodoContext,
+  );
   const { changeScreen } = useContext(ScreenContext);
 
   const [deviceWidth, setDeviceWidth] = useState(
     Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2,
   );
+
+  const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos]);
+
+  useEffect(() => {
+    loadTodos();
+  }, [loadTodos]);
 
   useEffect(() => {
     const update = () => {
@@ -25,6 +34,10 @@ const MainScreen: React.FC = () => {
 
     return () => Dimensions.removeEventListener('change', update);
   });
+
+  if (loading) {
+    return <AppLoader />;
+  }
 
   return (
     <View>

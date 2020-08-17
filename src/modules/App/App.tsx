@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.WHITE_COLOR,
   },
   innerContainer: {
+    flex: 1,
     paddingHorizontal: THEME.PADDING_HORIZONTAL,
     paddingVertical: THEME.PADDING_VERTICAL,
   },
