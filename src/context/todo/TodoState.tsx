@@ -47,8 +47,20 @@ const TodoState: React.FC = ({ children }) => {
     }
   };
 
-  const updateItem = (id: string, title: string) =>
-    dispatch({ type: UPDATE_ITEM, id, title });
+  const updateItem = async (id: string, title: string) => {
+    clearError();
+    try {
+      await fetch(`https://ethereal-todo.firebaseio.com/todos/${id}.json`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title }),
+      });
+      dispatch({ type: UPDATE_ITEM, id, title });
+    } catch (error) {
+      showError('Something went wrong, try again :)');
+      Alert.alert('ERROR', `${error}`);
+    }
+  };
 
   const removeItem = (id: string) => {
     const todoItem = state.todos.find((item: ITodo) => item.id === id);
