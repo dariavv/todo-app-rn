@@ -34,16 +34,22 @@ const TodoState: React.FC = ({ children }) => {
         } are too few!`,
       );
     } else {
-      const response = await fetch(
-        'https://ethereal-todo.firebaseio.com/todos.json',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title }),
-        },
-      );
-      const data = await response.json();
-      dispatch({ type: ADD_ITEM, title, id: data.name });
+      clearError();
+      try {
+        const response = await fetch(
+          'https://ethereal-todo.firebaseio.com/todos.json',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title }),
+          },
+        );
+        const data = await response.json();
+        dispatch({ type: ADD_ITEM, title, id: data.name });
+      } catch (error) {
+        showError('Something went wrong, try again :)');
+        Alert.alert('ERROR', `${error}`);
+      }
     }
   };
 
@@ -109,10 +115,13 @@ const TodoState: React.FC = ({ children }) => {
         },
       );
       const data = await response.json();
-      const todos = Object.keys(data).map((key: any) => ({
-        ...data[key],
-        id: key,
-      }));
+      let todos = [];
+      if (data) {
+        todos = Object.keys(data).map((key: any) => ({
+          ...data[key],
+          id: key,
+        }));
+      }
       dispatch({ type: FETCH_TODOS, todos });
     } catch (error) {
       showError('Something went wrong, try again :)');
