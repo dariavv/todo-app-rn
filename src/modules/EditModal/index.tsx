@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Modal, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import THEME from 'theme';
-import useEditModal from './useEditModal';
 
 type EditModalProps = {
   value: string;
@@ -18,7 +17,26 @@ const EditModal: React.FC<EditModalProps> = ({
   setVisible,
   saveItem,
 }) => {
-  const { title, setTitle, saveHandler } = useEditModal({ value, saveItem });
+  const [title, setTitle] = useState<string>(value);
+
+  const saveHandler = () => {
+    if (title.trim().length < 3) {
+      Alert.alert(
+        'Error',
+        `Minimum name length is 3 characters. ${
+          title.trim().length
+        } are too few!`,
+      );
+    } else {
+      saveItem(title);
+    }
+  };
+
+  const cancelHandler = () => {
+    setTitle(value);
+    setVisible();
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -51,7 +69,7 @@ const EditModal: React.FC<EditModalProps> = ({
               buttonStyle={styles.buttonCancel}
               title="Cancel"
               type="solid"
-              onPress={setVisible}
+              onPress={cancelHandler}
             />
           </View>
           <View style={styles.button}>

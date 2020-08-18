@@ -1,16 +1,25 @@
-import React from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import THEME from 'theme';
-import useAddItem from './useAddItem';
 
 type AddItemProps = {
   addItem: (value: string) => void;
 };
 
 const AppTodo: React.FC<AddItemProps> = ({ addItem }) => {
-  const { value, setValue, pressHandler } = useAddItem({ addItem });
+  const [value, setValue] = useState<string>('');
+
+  const pressHandler = () => {
+    if (value.trim()) {
+      addItem(value);
+      setValue('');
+      Keyboard.dismiss();
+    } else {
+      Alert.alert('Enter task name, please!');
+    }
+  };
 
   return (
     <View style={styles.block}>

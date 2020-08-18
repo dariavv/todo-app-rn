@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
+
 import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
-import { ITodo } from 'interfases';
+import TodoContext from 'context/todo/todoContext';
+import ScreenContext from 'context/screen/screenContext';
+import AppLoader from 'components/AppLoader';
+import Error from 'components/Error';
 import THEME from 'theme';
 
-type MainScreenProps = {
-  todos: ITodo[];
-  addItem: (title: string) => void;
-  openItem: (id: string) => void;
-  removeItem: (id: string) => void;
-};
+const MainScreen: React.FC = () => {
+  const { todos, addItem, removeItem, fetchTodos, loading, error } = useContext(
+    TodoContext,
+  );
+  const { changeScreen } = useContext(ScreenContext);
 
-const MainScreen: React.FC<MainScreenProps> = ({
-  todos,
-  addItem,
-  openItem,
-  removeItem,
-}) => {
   const [deviceWidth, setDeviceWidth] = useState(
     Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2,
   );
+
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos]);
 
   useEffect(() => {
     const update = () => {
@@ -34,6 +35,14 @@ const MainScreen: React.FC<MainScreenProps> = ({
     return () => Dimensions.removeEventListener('change', update);
   });
 
+  if (loading) {
+    return <AppLoader />;
+  }
+
+  if (error) {
+    return <Error error={error} fetchTodos={fetchTodos} />;
+  }
+
   return (
     <View>
       <AddTodo addItem={addItem} />
@@ -45,7 +54,7 @@ const MainScreen: React.FC<MainScreenProps> = ({
             renderItem={({ item }) => (
               <TodoItem
                 todo={item}
-                openItem={openItem}
+                openItem={changeScreen}
                 removeItem={removeItem}
               />
             )}
