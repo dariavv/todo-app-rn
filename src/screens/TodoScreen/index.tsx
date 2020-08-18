@@ -20,8 +20,8 @@ const TodoScreen: React.FC = () => {
     title: '',
   };
 
-  const saveItem = (title: string) => {
-    updateItem(todo.id, title);
+  const saveItem = async (title: string) => {
+    await updateItem(todo.id, title);
     setModalVisible(false);
   };
 

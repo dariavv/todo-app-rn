@@ -1,25 +1,32 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext, useCallback } from 'react';
 import { Alert } from 'react-native';
 import TodoContext from 'context/todo/todoContext';
 import ScreenContext from 'context/screen/screenContext';
-import { ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM } from 'types';
+import {
+  ADD_ITEM,
+  UPDATE_ITEM,
+  REMOVE_ITEM,
+  SHOW_LOADER,
+  HIDE_LOADER,
+  SHOW_ERROR,
+  CLEAR_ERROR,
+  FETCH_TODOS,
+} from 'types';
 import { ITodo } from 'interfases';
+import { getData, addData, updateData, removeData } from 'database';
 import todoReducer from './todoReducer';
 
 const TodoState: React.FC = ({ children }) => {
   const initialState = {
-    todos: [
-      { id: '1', title: 'Learn React Native' },
-      { id: '2', title: 'Get on the Project' },
-      { id: '3', title: 'Improve my English skills to C1 level' },
-      { id: '4', title: 'Start learning Spanish' },
-    ],
+    todos: [],
+    loading: false,
+    error: null,
   };
 
   const { changeScreen } = useContext(ScreenContext);
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
-  const addItem = (title: string) => {
+  const addItem = async (title: string) => {
     if (title.trim().length < 3) {
       Alert.alert(
         'Error',
@@ -28,12 +35,27 @@ const TodoState: React.FC = ({ children }) => {
         } are too few!`,
       );
     } else {
-      dispatch({ type: ADD_ITEM, payload: title });
+      clearError();
+      try {
+        const data = await addData(title);
+        dispatch({ type: ADD_ITEM, title, id: data.name });
+      } catch (error) {
+        showError('Something went wrong, try again :)');
+        Alert.alert('ERROR', `${error}`);
+      }
     }
   };
 
-  const updateItem = (id: string, title: string) =>
-    dispatch({ type: UPDATE_ITEM, payload: { id, title } });
+  const updateItem = async (id: string, title: string) => {
+    clearError();
+    try {
+      updateData(id, title);
+      dispatch({ type: UPDATE_ITEM, id, title });
+    } catch (error) {
+      showError('Something went wrong, try again :)');
+      Alert.alert('ERROR', `${error}`);
+    }
+  };
 
   const removeItem = (id: string) => {
     const todoItem = state.todos.find((item: ITodo) => item.id === id);
@@ -47,9 +69,16 @@ const TodoState: React.FC = ({ children }) => {
         },
         {
           text: 'Delete',
-          onPress: () => {
+          onPress: async () => {
             changeScreen(null);
-            dispatch({ type: REMOVE_ITEM, payload: id });
+            clearError();
+            try {
+              removeData(id);
+              dispatch({ type: REMOVE_ITEM, id });
+            } catch (error) {
+              showError('Something went wrong, try again :)');
+              Alert.alert('ERROR', `${error}`);
+            }
           },
         },
       ],
@@ -57,9 +86,37 @@ const TodoState: React.FC = ({ children }) => {
     );
   };
 
+  const fetchTodos = useCallback(async () => {
+    showLoader();
+    clearError();
+    try {
+      const todos = await getData();
+      dispatch({ type: FETCH_TODOS, todos });
+    } catch (error) {
+      showError('Something went wrong, try again :)');
+      Alert.alert('ERROR', `${error}`);
+    } finally {
+      hideLoader();
+    }
+  }, []);
+
+  const showLoader = () => dispatch({ type: SHOW_LOADER });
+  const hideLoader = () => dispatch({ type: HIDE_LOADER });
+
+  const showError = (error: any) => dispatch({ type: SHOW_ERROR, error });
+  const clearError = () => dispatch({ type: CLEAR_ERROR });
+
   return (
     <TodoContext.Provider
-      value={{ todos: state.todos, addItem, updateItem, removeItem }}>
+      value={{
+        todos: state.todos,
+        loading: state.loading,
+        error: state.error,
+        addItem,
+        updateItem,
+        removeItem,
+        fetchTodos,
+      }}>
       {children}
     </TodoContext.Provider>
   );
