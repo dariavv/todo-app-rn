@@ -1,20 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  Dimensions,
-  Text,
-} from 'react-native';
-import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
+
 import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
-import THEME from 'theme';
 import TodoContext from 'context/todo/todoContext';
 import ScreenContext from 'context/screen/screenContext';
 import AppLoader from 'components/AppLoader';
+import Error from 'components/Error';
+import THEME from 'theme';
 
 const MainScreen: React.FC = () => {
   const { todos, addItem, removeItem, fetchTodos, loading, error } = useContext(
@@ -47,27 +40,7 @@ const MainScreen: React.FC = () => {
   }
 
   if (error) {
-    return (
-      <View style={styles.errorWrapper}>
-        <Text style={styles.error}>{error}</Text>
-        <View style={styles.button}>
-          <Button
-            icon={
-              <Icon
-                name="repeat"
-                size={20}
-                color={THEME.WHITE_COLOR}
-                style={styles.icon}
-              />
-            }
-            buttonStyle={styles.errorButton}
-            title="Repeat"
-            type="solid"
-            onPress={fetchTodos}
-          />
-        </View>
-      </View>
-    );
+    return <Error error={error} fetchTodos={fetchTodos} />;
   }
 
   return (
@@ -109,27 +82,6 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-  },
-  errorWrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  error: {
-    fontSize: 24,
-    fontFamily: 'BadScript-Regular',
-    color: THEME.REMOVE_COLOR,
-    marginBottom: 30,
-  },
-  button: {
-    width: '40%',
-  },
-  errorButton: {
-    color: THEME.WHITE_COLOR,
-    backgroundColor: THEME.REMOVE_COLOR,
-  },
-  icon: {
-    paddingRight: 5,
   },
 });
 

@@ -13,6 +13,7 @@ import {
   FETCH_TODOS,
 } from 'types';
 import { ITodo } from 'interfases';
+import { getData, addData, updateData, removeData } from 'database';
 import todoReducer from './todoReducer';
 
 const TodoState: React.FC = ({ children }) => {
@@ -36,15 +37,7 @@ const TodoState: React.FC = ({ children }) => {
     } else {
       clearError();
       try {
-        const response = await fetch(
-          'https://ethereal-todo.firebaseio.com/todos.json',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title }),
-          },
-        );
-        const data = await response.json();
+        const data = await addData(title);
         dispatch({ type: ADD_ITEM, title, id: data.name });
       } catch (error) {
         showError('Something went wrong, try again :)');
@@ -56,11 +49,7 @@ const TodoState: React.FC = ({ children }) => {
   const updateItem = async (id: string, title: string) => {
     clearError();
     try {
-      await fetch(`https://ethereal-todo.firebaseio.com/todos/${id}.json`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title }),
-      });
+      updateData(id, title);
       dispatch({ type: UPDATE_ITEM, id, title });
     } catch (error) {
       showError('Something went wrong, try again :)');
@@ -84,13 +73,7 @@ const TodoState: React.FC = ({ children }) => {
             changeScreen(null);
             clearError();
             try {
-              await fetch(
-                `https://ethereal-todo.firebaseio.com/todos/${id}.json`,
-                {
-                  method: 'DELETE',
-                  headers: { 'Content-Type': 'application/json' },
-                },
-              );
+              removeData(id);
               dispatch({ type: REMOVE_ITEM, id });
             } catch (error) {
               showError('Something went wrong, try again :)');
@@ -107,21 +90,7 @@ const TodoState: React.FC = ({ children }) => {
     showLoader();
     clearError();
     try {
-      const response = await fetch(
-        'https://ethereal-todo.firebaseio.com/todos.json',
-        {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        },
-      );
-      const data = await response.json();
-      let todos = [];
-      if (data) {
-        todos = Object.keys(data).map((key: any) => ({
-          ...data[key],
-          id: key,
-        }));
-      }
+      const todos = await getData();
       dispatch({ type: FETCH_TODOS, todos });
     } catch (error) {
       showError('Something went wrong, try again :)');
