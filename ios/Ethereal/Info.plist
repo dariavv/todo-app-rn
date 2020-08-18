@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>AwesomeTSProject</string>
+	<string>Ethereal</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -53,5 +53,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>BadScript-Regular.ttf</string>
+		<string>PoiretOne-Regular.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>AntDesign.ttf</string>
+	</array>
 </dict>
 </plist>

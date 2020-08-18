@@ -1,57 +1,16 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Navbar from 'components/Navbar';
-import MainScreen from 'screens/MainScreen';
-import TodoScreen from 'screens/TodoScreen';
-import THEME from 'theme';
-import useApp from './useApp';
+import TodoState from 'context/todo/TodoState';
+import ScreenState from 'context/screen/ScreenState';
+import App from './App';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingBottom: 120,
-    backgroundColor: THEME.WHITE_COLOR,
-  },
-  innerContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 20,
-  },
-});
+interface AppWrapperProps {}
 
-const App: React.FC = () => {
-  const {
-    todos,
-    todoId,
-    selectedItem,
-    addItem,
-    openItem,
-    updateItem,
-    removeItem,
-    goBack,
-  } = useApp();
+const AppWrapper: React.FC<AppWrapperProps> = () => (
+  <ScreenState>
+    <TodoState>
+      <App />
+    </TodoState>
+  </ScreenState>
+);
 
-  return (
-    <View style={styles.container}>
-      <Navbar />
-      <View style={styles.innerContainer}>
-        {todoId ? (
-          <TodoScreen
-            todo={selectedItem}
-            goBack={goBack}
-            removeItem={removeItem}
-            updateItem={updateItem}
-          />
-        ) : (
-          <MainScreen
-            todos={todos}
-            addItem={addItem}
-            openItem={openItem}
-            removeItem={removeItem}
-          />
-        )}
-      </View>
-    </View>
-  );
-};
-
-export default App;
+export default AppWrapper;

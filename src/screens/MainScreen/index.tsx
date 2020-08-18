@@ -1,8 +1,76 @@
-import React from 'react';
-import { StyleSheet, View, FlatList, Image } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
+
 import AddTodo from 'modules/AddItem';
 import TodoItem from 'components/TodoItem';
-import { ITodo } from 'interfases';
+import TodoContext from 'context/todo/todoContext';
+import ScreenContext from 'context/screen/screenContext';
+import AppLoader from 'components/AppLoader';
+import Error from 'components/Error';
+import THEME from 'theme';
+
+const MainScreen: React.FC = () => {
+  const { todos, addItem, removeItem, fetchTodos, loading, error } = useContext(
+    TodoContext,
+  );
+  const { changeScreen } = useContext(ScreenContext);
+
+  const [deviceWidth, setDeviceWidth] = useState(
+    Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2,
+  );
+
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos]);
+
+  useEffect(() => {
+    const update = () => {
+      const width =
+        Dimensions.get('window').width - THEME.PADDING_HORIZONTAL * 2;
+      setDeviceWidth(width);
+    };
+
+    Dimensions.addEventListener('change', update);
+
+    return () => Dimensions.removeEventListener('change', update);
+  });
+
+  if (loading) {
+    return <AppLoader />;
+  }
+
+  if (error) {
+    return <Error error={error} fetchTodos={fetchTodos} />;
+  }
+
+  return (
+    <View>
+      <AddTodo addItem={addItem} />
+      {todos.length ? (
+        <View style={{ width: deviceWidth }}>
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={todos}
+            renderItem={({ item }) => (
+              <TodoItem
+                todo={item}
+                openItem={changeScreen}
+                removeItem={removeItem}
+              />
+            )}
+          />
+        </View>
+      ) : (
+        <View style={styles.imageWrapper}>
+          <Image
+            style={styles.image}
+            source={require('../../../assets/images/empty.jpg')}
+          />
+        </View>
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   imageWrapper: {
@@ -16,41 +84,5 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-
-type MainScreenProps = {
-  todos: ITodo[];
-  addItem: (title: string) => void;
-  openItem: (id: string) => void;
-  removeItem: (id: string) => void;
-};
-
-const MainScreen: React.FC<MainScreenProps> = ({
-  todos,
-  addItem,
-  openItem,
-  removeItem,
-}) => {
-  return (
-    <View>
-      <AddTodo addItem={addItem} />
-      {todos.length ? (
-        <FlatList
-          keyExtractor={(item) => item.id.toString()}
-          data={todos}
-          renderItem={({ item }) => (
-            <TodoItem todo={item} openItem={openItem} removeItem={removeItem} />
-          )}
-        />
-      ) : (
-        <View style={styles.imageWrapper}>
-          <Image
-            style={styles.image}
-            source={require('../../../assets/images/empty.jpg')}
-          />
-        </View>
-      )}
-    </View>
-  );
-};
 
 export default MainScreen;

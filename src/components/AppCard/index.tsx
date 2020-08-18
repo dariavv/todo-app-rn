@@ -10,6 +10,10 @@ type AppCardProps = {
   children?: ReactNode;
 };
 
+const AppCard: React.FC<AppCardProps> = ({ style, children }) => {
+  return <View style={{ ...styles.default, ...style }}>{children}</View>;
+};
+
 const styles = StyleSheet.create({
   default: {
     flexDirection: 'row',
@@ -23,9 +27,5 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
 });
-
-const AppCard: React.FC<AppCardProps> = ({ style, children }) => {
-  return <View style={{ ...styles.default, ...style }}>{children}</View>;
-};
 
 export default AppCard;
